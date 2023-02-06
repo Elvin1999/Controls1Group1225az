@@ -21,7 +21,6 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
         }
 
         private void sendBtn_Click(object sender, EventArgs e)
@@ -44,13 +43,37 @@ namespace WindowsFormsApp1
             }
             IsClicked = !IsClicked;
         }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (textBox1.Text.Length <= 5)
+            var len=textBox1.Text.Length;
+            if (len <= 5)
             {
                 infoLbl.Text = "Weak password";
                 infoLbl.ForeColor = Color.Red;
+            }
+            else if(len >= 6 && len <= 12)
+            {
+                infoLbl.Text = "Normal password";
+                infoLbl.ForeColor = Color.Orange;
+            }
+            else if (char.IsUpper(textBox1.Text[0]) && textBox1.Text.Contains('_'))
+            {
+                infoLbl.Text = "Strong password";
+                infoLbl.ForeColor = Color.DeepSkyBlue;
+            }
+        }
+        public string Content { get; set; }=String.Empty;
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            Content += e.KeyValue.ToString();
+            if (Content != "17" && Content != "1767")
+            {
+                Content = String.Empty;
+            }
+            else if (Content == "1767")
+            {
+                textBox1.SelectionLength = 0;
+                Content = String.Empty;
             }
         }
     }
